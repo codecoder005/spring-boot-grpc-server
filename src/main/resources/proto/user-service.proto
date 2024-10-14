@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.popcorn.grpc";
+
+/**
+  REQUEST BODY
+ */
+message CreateUserRequest{
+  string name = 1;
+  string email = 2;
+}
+
+message GetAllUsersRequest {}
+
+/**
+  RESPONSE BODY
+ */
+message CreateUserResponse {
+  int64 uid = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+// User details
+message UserResponse {
+  int64 uid = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+// Response for getAllUsers
+message GetAllUsersResponse {
+  repeated UserResponse users = 1; // List of users
+}
+
+service UserService {
+  rpc createUser(CreateUserRequest) returns (CreateUserResponse) {};
+  rpc getAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
+}
